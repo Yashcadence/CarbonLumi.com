@@ -9,6 +9,21 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
+        <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+            <symbol id="fp" viewBox="0 0 32 50">
+                <ellipse cx="16" cy="21" rx="9" ry="13"/>
+                <circle cx="7.5" cy="4.5" r="2.7"/>
+                <circle cx="13.5" cy="2.6" r="2.5"/>
+                <circle cx="19.5" cy="2.8" r="2.5"/>
+                <circle cx="25" cy="5" r="2.3"/>
+                <ellipse cx="16" cy="43" rx="6.5" ry="5.5"/>
+            </symbol>
+            <defs>
+                <clipPath id="squircle" clipPathUnits="objectBoundingBox">
+                    <path d="M0.5,0 C0.89,0 1,0.11 1,0.5 C1,0.89 0.89,1 0.5,1 C0.11,1 0,0.89 0,0.5 C0,0.11 0.11,0 0.5,0 Z"/>
+                </clipPath>
+            </defs>
+        </svg>
         <header class="site-header band">
             <a class="logo" href="index.html">Carbon Lumi</a>
             <nav>
@@ -20,11 +35,24 @@
 
         <main>
             <section class="band hero">
-                <div class="inner">
-                    <p>Carbon Footprint Calculator</p>
-                    <h1>How big is your Footprint</h1>
-                    <p class="muted">Answer a few questions about food, travel, home and Shoping.
-                    See how your yearly emissions compare with your country, your continent and the world.</p>
+                <div class="inner hero-grid">
+                    <div class="hero-text">
+                        <p class="eyebrow">Carbon footprint Calculator</p>
+                        <h1>How big is <span class="h1">your footprint?</span></h1>
+                        <p class="muted">Answer a few questions about food, travel, home and shopping.
+                        See how your yearly emissions compare with your country, your continent and the world.</p>
+                        <p>
+                            <a class="cta" href="calculator.html">
+                                <svg class="cta-icon" viewBox="0 0 32 50" aria-hidden="true">
+                                    <use href="#fp"/>
+                                </svg>
+                                <span>Caculate my footprint</span>
+                                <span class="cta-arrow" aria-hidden="true">&rarr;</span>
+                            </a>
+                        </p>
+                        <p class="muted small">Takes about 5 minutes &middot; Nothing you enter is saved</p>
+                    </div>
+                    <div class="squircle"><img src="blob:https://mega.nz/a6077a04-38de-4bfb-8336-85b4edb6c2da" alt="Illustration of planet earth with leaves"></div>
                 </div>
             </section>
         </main>
