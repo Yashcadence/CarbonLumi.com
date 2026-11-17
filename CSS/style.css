@@ -167,3 +167,8 @@ p {
         animation:none; 
     } 
 }
+
+.hero-text .muted {
+    color:#e8f4ec;
+    font-size: 1.1rem;
+}
