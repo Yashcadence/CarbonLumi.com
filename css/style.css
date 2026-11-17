@@ -1,0 +1,88 @@
+:root, .dark {
+    --bg: #0d2419;
+    --surface: #15352a;
+    --ink: #eaf3ee
+    --mut: #a9c2b6;
+    --line: #2c4f40;
+    --pri: #5fd09b;
+    --onpri: #08170f;    
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin:0;
+    font:16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+}
+
+.band {
+    background: var(--bg);
+    color: var(--ink);
+    padding: 3rem 5vw;
+}
+
+h1, h2, h3 {
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    line-height: 1.15;
+    margin: 0 0 .6em;
+}
+
+h1 {
+    font-size: clamp(2.2rem, 6vm, 3.8rem);
+}
+
+
+h2 {
+    font-size: 1.8rem;
+}
+
+a {
+    color:var(--pri);
+}
+
+p {
+    max-width: 65ch;
+}
+
+.muted {
+    color:var(--mut); 
+}
+
+.site-header {
+    display: flex; 
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: .5rem 2rem;
+    padding: 1rem 5vw;
+    border-bottom: 1px solid var(--line);
+}
+
+.logo {
+    font: 800 1.4rem "Bricolage Grotesque", sans-serif;
+    color:var(--pri);
+    text-decoration: none;
+}
+
+.site-header nav a {
+    margin-right: 1.2rem;
+    color:var(--ink);
+    text-decoration: none;
+    padding: .3rem 0;
+    border-bottom: 2px solid transparent;
+}
+
+.site header nav a:hover, .site-header nav a[aria-current] {
+    border-color: var(--pri);
+}
+
+.site footer {
+    text-align:center;
+    color:var(--mut);
+    border-top: 1px solid var(--line);
+    padding: 2rem 5vw;
+}
