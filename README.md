@@ -9,6 +9,9 @@
 
 A website that estimates a person's yearly carbon footprint and campares it with country, continent and world averages.
 
+## Status
+In Development
+
 ## Planned Features
 
 - Home page with about us and creator message.
