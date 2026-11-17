@@ -51,3 +51,38 @@ p {
 .muted {
     color:var(--mut); 
 }
+
+.site-header {
+    display: flex; 
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: .5rem 2rem;
+    padding: 1rem 5vw;
+    border-bottom: 1px solid var(--line);
+}
+
+.logo {
+    font: 800 1.4rem "Bricolage Grotesque", sans-serif;
+    color:var(--pri);
+    text-decoration: none;
+}
+
+.site-header nav a {
+    margin-right: 1.2rem;
+    color:var(--ink);
+    text-decoration: none;
+    padding: .3rem 0;
+    border-bottom: 2px solid transparent;
+}
+
+.site header nav a:hover, .site-header nav a[aria-current] {
+    border-color: var(--pri);
+}
+
+.site footer {
+    text-align:center;
+    color:var(--mut);
+    border-top: 1px solid var(--line);
+    padding: 2rem 5vw;
+}
