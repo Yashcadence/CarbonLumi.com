@@ -265,3 +265,24 @@ p {
         max-width: 260px;
     }
 }
+
+.button {
+    display: inline-block;
+    background: var(--pri);
+    color: var(--onpri);
+    border: 0;
+    padding: .8rem 1.6rem;
+    border-radius: 8px;
+    font: 600 1rem system-ui, sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.button:hover {
+    opacity: .9;
+}
+
+.button [disabled] {
+    opacity: .5;
+    cursor: not-allowed;
+}
