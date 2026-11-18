@@ -6,7 +6,7 @@
         <title>Home | Carbon Lumi</title>
         <link rel="preconnect" href="https://font.googleapis.com">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&display=swap">
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="CSS/style.css">
     </head>
     <body>
         <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -17,6 +17,10 @@
                 <circle cx="19.5" cy="2.8" r="2.5"/>
                 <circle cx="25" cy="5" r="2.3"/>
                 <ellipse cx="16" cy="43" rx="6.5" ry="5.5"/>
+            </symbol>
+            <symbol id="leaf" viewBox="0 0 40 60">
+                <path d="M20 0C42 16 42 46 20 60C-2 46 -2 16 20 0Z" fill="currentColor"/>
+                <path d="M20 8V56" stroke="#0d2419" stroke-opacity=".35" stroke-width="2" fill="none"/>
             </symbol>
             <defs>
                 <clipPath id="squircle" clipPathUnits="objectBoundingBox">
@@ -35,6 +39,26 @@
 
         <main>
             <section class="band hero">
+                <div class="leaves" aria-hidden="true">
+                    <svg class="leaf" viewBox="0 0 40 60" style="left:6%;top:12%;width:70px;--r:-30deg;color:#2fa36b;animation-delay:-1s">
+                        <use href="#leaf"/>
+                    </svg>
+                    <svg class="leaf" viewBox="0 0 40 60" style="left:38%;top:70%;width:50px;--r:40deg;color:#3fbf80;animation-delay:-3s">
+                        <use href="#leaf"/>
+                    </svg>
+                    <svg class="leaf" viewBox="0 0 40 60" style="left:62%;top:6%;width:85px;--r:20deg;color:#1f7a52;animation-delay:-2s">
+                        <use href="#leaf"/>
+                    </svg>
+                    <svg class="leaf" viewBox="0 0 40 60" style="left:90%;top:48%;width:60px;--r:-55deg;color:#5fd09b;animation-delay:-4s">
+                        <use href="#leaf"/>
+                    </svg>
+                    <svg class="leaf" viewBox="0 0 40 60" style="left:15%;top:78%;width:90px;--r:65deg;color:#2fa36b;animation-delay:-5s">
+                        <use href="#leaf"/>
+                    </svg>
+                    <svg class="leaf" viewBox="0 0 40 60" style="left:76%;top:82%;width:45px;--r:-15deg;color:#3fbf80;animation-delay:-1.5s">
+                        <use href="#leaf"/>
+                    </svg>
+                </div>
                 <div class="inner hero-grid">
                     <div class="hero-text">
                         <p class="eyebrow">Carbon footprint Calculator</p>
