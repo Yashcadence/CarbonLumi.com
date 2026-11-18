@@ -173,3 +173,33 @@ p {
     font-size: 1.2rem;
     line-height: 1.7;
 }
+
+.leaves { 
+    position:absolute; 
+    inset:0; 
+    z-index:0; 
+    pointer-events:none; 
+}
+
+.leaf { 
+    position:absolute; 
+    opacity:.75; 
+    transform-origin:50% 100%; 
+    animation: sway 5s ease-in-out infinite;
+}
+
+@keyframes sway { 
+    0%,100% { 
+        transform:rotate(calc(var(--r) - 7deg)); 
+    } 
+    50% { 
+        transform:rotate(calc(var(--r) + 7deg)); 
+    } 
+}
+
+@media (prefers-reduced-motion:reduce) { 
+    .leaf { 
+        animation:none;
+        transform:rotate(var(--r)); 
+    } 
+}
