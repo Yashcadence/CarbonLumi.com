@@ -203,3 +203,65 @@ p {
         transform:rotate(var(--r)); 
     } 
 }
+
+.creator {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 3rem;
+    align-items: center;
+}
+
+.creator-text {
+    grid-column: 1;
+}
+
+.creator-photo {
+    grid-column: 2;
+}
+
+.sign-off {
+    font: 700 2rem/1 Georgia, serif;
+    color: var(--pri);
+    margin-top: 12rem;
+}
+
+.frame {
+    position: relative;
+}
+
+.frame::before {
+    content: "";
+    position: absolute;
+    insert: 14px -14px -14px 14px;
+    background: var(--pri);
+    border-radius: 140px 140px 18px 18px;
+    transform: rotate(3deg);
+    opacity: .85;
+}
+
+.frame img {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    border-radius: 140px 140px 18px 18px;
+    border: 3px solid var(--bg);
+}
+
+.caption {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+@media (max-width: 760px) {
+    .creator {
+        grid-template-columns: 1fr;
+    }
+    .creator-photo, .creator-text {
+        grid-column: 1;
+    }
+    .creator-photo {
+        max-width: 260px;
+    }
+}
