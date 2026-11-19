@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Calculator | Footprint</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&display=swap">
+        <link rel="stylesheet" href="CSS/style.css">
+    </head>
+
+    <body>
+        <header class="site-header band">
+            <a class="logo" href="index.html">Carbon Lumi</a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="calculator.html" aria-current="page">Calculator</a>
+                <a href="contact.html">Contact Us</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="band">
+                <div class="inner">
+                    <h1>Carbon footprint calculator</h1>
+                    <p class="muted">It takes about five minutes. Questions marked optional can be skipped. Your answers never leave your device.</p>
+                    <label for="country">Which country is your home country?
+                        <select id="country">
+                            <option value="">Select your country…</option>
+                        </select>
+                    </label>
+                </div>
+            </section>
+
+            <section class="band">
+                <div class="inner">
+                    <form id="questions" hidden></form>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer band">&copy; 2026 Footprint. Results are estimates, not exact measurements.</footer>
+
+        <script src="js/data.js"></script>
+        <script src="js/app.js"></script>
+    </body>
+</html>
