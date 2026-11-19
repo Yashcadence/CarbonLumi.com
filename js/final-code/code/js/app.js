@@ -100,3 +100,60 @@ function buildQuestions(country) {
     }
   ];
 }
+
+
+function buildQuestionHtml(question) {
+  let field;
+
+  if (question.type === "select") {
+    const blankText = question.required ? "Select…" : "Skip this question";
+    let optionsHtml = '<option value="">' + blankText + "</option>";
+    question.options.forEach(function (option) {
+      optionsHtml += '<option value="' + option[0] + '">' + option[1] + "</option>";
+    });
+    field = '<select id="' + question.id + '" name="' + question.id + '"' +
+            (question.required ? " required" : "") + ">" + optionsHtml + "</select>";
+  } else {
+    const min = question.min !== undefined ? question.min : 0;
+    const max = question.max !== undefined ? ' max="' + question.max + '"' : "";
+    field = '<input type="number" id="' + question.id + '" name="' + question.id + '"' +
+            ' min="' + min + '"' + max + ' step="any"' +
+            (question.required ? " required" : "") + ">";
+  }
+
+  const optionalNote = question.required ? "" : " <small>(optional)</small>";
+  return '<label for="' + question.id + '">' + question.label + optionalNote + field + "</label>";
+}
+
+function showQuestions(country) {
+  let html = "";
+  buildQuestions(country).forEach(function (section) {
+    html += "<fieldset>";
+    html += '<legend><img src="images/icon-' + section.icon + '.svg" alt="">' + section.title + "</legend>";
+    section.questions.forEach(function (question) {
+      html += buildQuestionHtml(question);
+    });
+    html += "</fieldset>";
+  });
+  html += '<button class="btn" type="submit">Calculate my footprint</button>';
+
+  questionsForm.innerHTML = html;
+  questionsForm.hidden = false;
+}
+
+function findCountry(name) {
+  return COUNTRIES.find(function (c) { return c.name === name; });
+}
+
+countrySelect.addEventListener("change", function () {
+  const country = findCountry(countrySelect.value);
+  if (country) {
+    showQuestions(country);
+  } else {
+    questionsForm.hidden = true;
+  }
+});
+
+questionsForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+});
