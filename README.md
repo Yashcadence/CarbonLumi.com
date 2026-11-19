@@ -20,3 +20,8 @@ In Development
 - Calculator with food, travel, home and shopping questions.
     - Charts comparing you with the world.
 - Contact Form.
+
+## Calculator
+
+The calculator page asks about food, travel, home and shopping. Emission factors are simple
+approximations and are listed at the top of `js/app.js`; country averages are in `js/data.js`.
