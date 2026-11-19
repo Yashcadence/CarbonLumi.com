@@ -40,3 +40,63 @@ const KG_PER_HOUR_BUS   = 4.0;
 
 const KG_PER_FLIGHT_HOME_COUNTRY = 400;
 const KG_PER_FLIGHT_ABROAD       = 1600;
+
+
+function buildQuestions(country) {
+  const money = "(" + country.currency + ")";   // e.g. "(GBP)"
+
+  return [
+    {
+      title: "Food",
+      icon: "food",
+      questions: [
+        { id: "diet", required: true, type: "select",
+          label: "Which best describes your diet?",
+          options: [
+            ["meat_every_meal", "Meat at every meal"],
+            ["meat_daily",      "Meat every day"],
+            ["meat_twice_week", "Meat twice a week"],
+            ["meat_once_week",  "Meat once a week"],
+            ["no_beef",         "No beef"],
+            ["vegetarian",      "Vegetarian"],
+            ["vegan",           "Vegan"]
+          ] },
+        { id: "eatOutWeekly", type: "number",
+          label: "How much do you spend in restaurants and takeaways in a week? " + money },
+        { id: "wastePercent", type: "number", max: 100,
+          label: "What percentage of the food on your plate gets wasted? (0 to 100)" },
+        { id: "local", type: "select",
+          label: "How often do you buy locally sourced food (not imported from another country)?",
+          options: [["never", "Never"], ["sometimes", "Sometimes"], ["often", "Often"], ["always", "Always"]] }
+      ]
+    },
+    {
+      title: "Travel",
+      icon: "transport",
+      questions: [
+        { id: "mode", required: true, type: "select",
+          label: "What is your most preferred mode of transport?",
+          options: [
+            ["car_petrol",   "Car (petrol)"],
+            ["car_diesel",   "Car (diesel)"],
+            ["car_hybrid",   "Car (hybrid)"],
+            ["car_electric", "Car (electric)"],
+            ["motorbike",    "Motorbike"],
+            ["train",        "Train"],
+            ["bus",          "Bus"],
+            ["walk_cycle",   "Walking or cycling"]
+          ] },
+        { id: "carKmWeekly", type: "number",
+          label: "If you drive or ride, how many kilometres do you travel in a week? (If you skip this we assume " + DEFAULT_KM_PER_WEEK + " km.)" },
+        { id: "trainHours", type: "number",
+          label: "TRAIN: how many hours do you travel by train in a week?" },
+        { id: "busHours", type: "number",
+          label: "BUS: how many hours do you travel by bus in a week?" },
+        { id: "flightsHome", type: "number",
+          label: "How many return flights do you take each year within your home country?" },
+        { id: "flightsAbroad", type: "number",
+          label: "How many return flights do you take each year outside your home country?" }
+      ]
+    }
+  ];
+}
