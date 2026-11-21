@@ -26,7 +26,7 @@ const WASTE_EFFECT = 0.5;
 const KG_PER_USD_EATING_OUT = 0.6;
 
 const KG_PER_KM = {
-  car_petrol:   1.7,
+  car_petrol:   0.17,
   car_diesel:   0.16,
   car_hybrid:   0.105,
   car_electric: 0.05,
