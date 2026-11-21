@@ -45,6 +45,29 @@ const KG_PER_FLIGHT_ABROAD       = 1600;
 function buildQuestions(country) {
   const money = "(" + country.currency + ")";   // e.g. "(GBP)"
 
+  let heatingOptions;
+  let heatingLabel;
+  if (country.climate === "hot") {
+    heatingLabel = "How do you cool your home?";
+    heatingOptions = [
+      ["ac_most_rooms", "Air conditioning in most rooms"],
+      ["ac_some_rooms", "Air conditioning in one or two rooms"],
+      ["fans_only",     "Fans only"],
+      ["natural",       "Natural ventilation only"]
+    ];
+  } else {
+    heatingLabel = "How do you heat your home?";
+    heatingOptions = [
+      ["gas",       "Gas"],
+      ["oil",       "Oil"],
+      ["electric",  "Electric heaters"],
+      ["heat_pump", "Heat pump"],
+      ["wood",      "Wood or biomass"],
+      ["district",  "District heating"],
+      ["none",      "No heating"]
+    ];
+  }
+
   return [
     {
       title: "Food",
@@ -70,6 +93,33 @@ function buildQuestions(country) {
           options: [["never", "Never"], ["sometimes", "Sometimes"], ["often", "Often"], ["always", "Always"]] }
       ]
     },
+
+    {
+      title: "Home",
+      icon: "home",
+      questions: [
+        { id: "house", required: true, type: "select",
+          label: "What kind of house do you live in?",
+          options: [
+            ["detached",  "Detached house"],
+            ["semi",      "Semi-detached house"],
+            ["terraced",  "Terraced house"],
+            ["apartment", "Apartment or flat"],
+            ["other",     "Other"]
+          ] },
+        { id: "bedrooms", required: true, type: "number", min: 1,
+          label: "How many bedrooms does your home have?" },
+        { id: "people", required: true, type: "number", min: 1,
+          label: "How many people live in your home (including you)?" },
+        { id: "adults", required: true, type: "number", min: 1,
+          label: "How many of them are aged above 17?" },
+        { id: "heating", type: "select", label: heatingLabel, options: heatingOptions },
+        { id: "standby", type: "select",
+          label: "Do you regularly turn off lights and avoid leaving appliances on standby?",
+          options: [["always", "Yes, always"], ["sometimes", "Sometimes"], ["rarely", "Rarely"]] }
+      ]
+    },
+
     {
       title: "Travel",
       icon: "transport",
