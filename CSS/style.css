@@ -342,3 +342,9 @@ label small {
     .charts { grid-template-columns:1fr; 
     } 
 }
+
+
+@media print { 
+    .site-header, .site-footer { display:none; 
+    } 
+}
