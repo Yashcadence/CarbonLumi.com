@@ -45,7 +45,16 @@
                         <span id="total"></span> 
                         <span class="unit">tonnes CO<sub>2</sub>e per year</span>
                     </div>
-                    <p id="comparison"></p>
+                    <p id="comparison">
+                        <div class="charts">
+                            <div class="chart-box">
+                                <canvas id="barChart" aria-label="Bar chart comparing you with averages"></canvas>
+                            </div>
+                            <div class="chart-box">
+                                <canvas id="doughnutChart" aria-label="Doughnut chart of your emission sources"></canvas>
+                            </div>
+                        </div>
+                    </p>
                     <p id="tip" class="note" hidden></p>
                 </div>
             </section>
@@ -53,7 +62,7 @@
 
         <footer class="site-footer band">&copy; 2026 Footprint. Results are estimates, not exact measurements.</footer>
 
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
         <script src="js/data.js"></script>
         <script src="js/app.js"></script>
     </body>
