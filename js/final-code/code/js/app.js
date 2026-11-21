@@ -221,6 +221,7 @@ function findCountry(name) {
 }
 
 countrySelect.addEventListener("change", function () {
+  resultsSection.hidden = true;
   const country = findCountry(countrySelect.value);
   if (country) {
     showQuestions(country);
