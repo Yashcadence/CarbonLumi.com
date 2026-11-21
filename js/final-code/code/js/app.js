@@ -288,3 +288,32 @@ function calculateFootprint(answers, country) {
     "Goods & services": tonnes(goods)
   };
 }
+
+const resultsSection = document.getElementById("results");
+
+function describeDifference(yourTotal, average, placeName) {
+  const percent = Math.round((yourTotal / average - 1) * 100);
+  const direction = percent >= 0 ? "above" : "below";
+  return Math.abs(percent) + "% " + direction + " the " + placeName + " average (" + average + " t)";
+}
+
+function showResults(parts, country) {
+  const yourTotal = Math.round(Object.values(parts).reduce(function (a, b) { return a + b; }, 0) * 100) / 100;
+  const continentAverage = CONTINENT_AVERAGES[country.continent];
+
+  document.getElementById("total").textContent = yourTotal.toFixed(1);
+  document.getElementById("comparison").textContent =
+    "You are " + describeDifference(yourTotal, country.average, country.name) + ", " +
+    describeDifference(yourTotal, continentAverage, country.continent) + ", and " +
+    describeDifference(yourTotal, WORLD_AVERAGE, "world") + ".";
+
+  resultsSection.hidden = false;
+  resultsSection.scrollIntoView({ behavior: "smooth" });
+}
+
+questionsForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+  const country = findCountry(countrySelect.value);
+  const answers = Object.fromEntries(new FormData(questionsForm));
+  showResults(calculateFootprint(answers, country), country);
+});
