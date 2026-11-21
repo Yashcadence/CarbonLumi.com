@@ -12,6 +12,7 @@ A website that estimates a person's yearly carbon footprint and campares it with
 Live demo: coming soon
 
 ## Status
+
 In Development
 
 ## Planned Features
@@ -25,3 +26,7 @@ In Development
 
 The calculator page asks about food, travel, home and shopping. Emission factors are simple
 approximations and are listed at the top of `js/app.js`; country averages are in `js/data.js`.
+
+## RoadMap
+
+- Charts comparing you with the world (in progress).
