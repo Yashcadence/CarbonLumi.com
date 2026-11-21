@@ -232,3 +232,59 @@ countrySelect.addEventListener("change", function () {
 questionsForm.addEventListener("submit", function (event) {
   event.preventDefault();
 });
+
+
+function calculateFootprint(answers, country) {
+  function num(id) {
+    const value = parseFloat(answers[id]);
+    return isNaN(value) ? 0 : value;
+  }
+  function usd(id) {
+    return num(id) / country.perUSD;
+  }
+
+  let food = DIET_KG[answers.diet] || 0;
+  food = food * (1 - (LOCAL_FOOD_SAVING[answers.local] || 0));
+  food = food * (1 + (Math.min(num("wastePercent"), 100) / 100) * WASTE_EFFECT);
+  food = food + usd("eatOutWeekly") * 52 * KG_PER_USD_EATING_OUT;
+
+  let travel = 0;
+  if (KG_PER_KM[answers.mode] !== undefined) {  
+    const kmPerWeek = (answers.carKmWeekly === "" || answers.carKmWeekly === undefined)
+      ? DEFAULT_KM_PER_WEEK
+      : num("carKmWeekly");
+    travel += kmPerWeek * 52 * KG_PER_KM[answers.mode];
+  }
+  travel += num("trainHours") * 52 * KG_PER_HOUR_TRAIN;
+  travel += num("busHours")   * 52 * KG_PER_HOUR_BUS;
+  travel += num("flightsHome")   * KG_PER_FLIGHT_HOME_COUNTRY;
+  travel += num("flightsAbroad") * KG_PER_FLIGHT_ABROAD;
+
+  const people = Math.max(num("people"), 1);
+  const adults = Math.min(Math.max(num("adults"), 1), people);
+  const children = people - adults;
+  const myShare = 1 / (adults + 0.5 * children);  
+
+  let household = (HOUSE_KG[answers.house] || 0) +
+                  EXTRA_KG_PER_BEDROOM_ABOVE_2 * (num("bedrooms") - 2);
+  household = Math.max(household, 500);
+  household = household * (answers.heating in HEATING_COOLING_FACTOR ? HEATING_COOLING_FACTOR[answers.heating] : 1);
+  household = household * (answers.standby in STANDBY_FACTOR ? STANDBY_FACTOR[answers.standby] : 1);
+  const home = household * myShare;
+
+  let goods = 0;
+  for (const item in KG_PER_ITEM) {
+    goods += num(item) * KG_PER_ITEM[item];
+  }
+  for (const spend in KG_PER_USD) {
+    goods += usd(spend) * 12 * KG_PER_USD[spend];
+  }
+
+  function tonnes(kg) { return Math.round(kg / 10) / 100; }
+  return {
+    "Food": tonnes(food),
+    "Travel": tonnes(travel),
+    "Home": tonnes(home),
+    "Goods & services": tonnes(goods)
+  };
+}
