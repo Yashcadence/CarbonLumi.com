@@ -313,6 +313,7 @@ function showResults(parts, country) {
   tip.hidden = false;
   
   resultsSection.hidden = false;
+  drawBarChart(yourTotal, country, continentAverage);
   resultsSection.scrollIntoView({ behavior: "smooth" });
 }
 
@@ -332,4 +333,33 @@ function biggestSourceTip(parts) {
     }
   }
   return "Your biggest source is " + biggest + " (" + parts[biggest] + " t). That is the best place to start cutting.";
+}
+
+
+Chart.defaults.color = "#eaf3ee";
+Chart.defaults.borderColor = "rgba(234,243,238,0.15)";
+
+let barChart = null;
+let doughnutChart = null;
+
+function drawBarChart(yourTotal, country, continentAverage) {
+  if (barChart) { barChart.destroy(); }
+  barChart = new Chart(document.getElementById("barChart"), {
+    type: "bar",
+    data: {
+      labels: ["You", country.name, country.continent, "World"],
+      datasets: [{
+        data: [yourTotal, country.average, continentAverage, WORLD_AVERAGE],
+        backgroundColor: ["#5fd09b", "#6bb6d9", "#e6b85c", "#c4d1ca"]
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        title: { display: true, text: "Tonnes CO2e per person per year" }
+      },
+      scales: { y: { beginAtZero: true } }
+    }
+  });
 }
