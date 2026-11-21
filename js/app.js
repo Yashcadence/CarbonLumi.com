@@ -314,6 +314,7 @@ function showResults(parts, country) {
   
   resultsSection.hidden = false;
   drawBarChart(yourTotal, country, continentAverage);
+  drawDoughnutChart(parts);
   resultsSection.scrollIntoView({ behavior: "smooth" });
 }
 
@@ -360,6 +361,26 @@ function drawBarChart(yourTotal, country, continentAverage) {
         title: { display: true, text: "Tonnes CO2e per person per year" }
       },
       scales: { y: { beginAtZero: true } }
+    }
+  });
+}
+
+
+function drawDoughnutChart(parts) {
+  if (doughnutChart) { doughnutChart.destroy(); }
+  doughnutChart = new Chart(document.getElementById("doughnutChart"), {
+    type: "doughnut",
+    data: {
+      labels: Object.keys(parts),
+      datasets: [{
+        data: Object.values(parts),
+        backgroundColor: ["#5fd09b", "#6bb6d9", "#e6b85c", "#b59ae0"],
+        borderColor: "#0d2419"
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { title: { display: true, text: "Where your emissions come from (tonnes)" } }
     }
   });
 }
