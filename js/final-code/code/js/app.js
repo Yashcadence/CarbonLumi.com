@@ -308,6 +308,10 @@ function showResults(parts, country) {
     describeDifference(yourTotal, continentAverage, country.continent) + ", and " +
     describeDifference(yourTotal, WORLD_AVERAGE, "world") + ".";
 
+  const tip = document.getElementById("tip");
+  tip.textContent = biggestSourceTip(parts);
+  tip.hidden = false;
+  
   resultsSection.hidden = false;
   resultsSection.scrollIntoView({ behavior: "smooth" });
 }
@@ -318,3 +322,14 @@ questionsForm.addEventListener("submit", function (event) {
   const answers = Object.fromEntries(new FormData(questionsForm));
   showResults(calculateFootprint(answers, country), country);
 });
+
+
+function biggestSourceTip(parts) {
+  let biggest = "Food";
+  for (const group in parts) {
+    if (parts[group] > parts[biggest]) {
+      biggest = group;
+    }
+  }
+  return "Your biggest source is " + biggest + " (" + parts[biggest] + " t). That is the best place to start cutting.";
+}
