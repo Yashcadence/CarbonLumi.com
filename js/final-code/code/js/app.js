@@ -121,6 +121,31 @@ function buildQuestions(country) {
     },
 
     {
+      title: "Things you buy",
+      icon: "shop",
+      questions: [
+        { id: "tv", type: "number",
+          label: "In the last 12 months, how many TVs or monitors did you buy?" },
+        { id: "largeAppliance", type: "number",
+          label: "In the last 12 months, how many fridges, washing machines or other large appliances did you buy?" },
+        { id: "phone", type: "number",
+          label: "In the last 12 months, how many mobile phones did you buy?" },
+        { id: "gadget", type: "number",
+          label: "In the last 12 months, how many laptops, tablets or other gadgets did you buy?" },
+        { id: "clothes", type: "number",
+          label: "How much do you spend on clothes in a month? " + money },
+        { id: "pets", type: "number",
+          label: "How much do you spend on pets and pet food in a month? " + money },
+        { id: "health", type: "number",
+          label: "How much do you spend on health and grooming in a month? " + money },
+        { id: "mobileContract", type: "number",
+          label: "How much do you spend on mobile contracts in a month? " + money },
+        { id: "hobbies", type: "number",
+          label: "How much do you spend on hobbies in a month? " + money }
+      ]
+    },
+
+    {
       title: "Travel",
       icon: "transport",
       questions: [
