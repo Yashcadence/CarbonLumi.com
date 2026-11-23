@@ -227,7 +227,7 @@ function validateAnswers(answers) {
   const adults = parseFloat(answers.adults);
   const waste  = parseFloat(answers.wastePercent);
 
-  if (!isNaN(people) && !isNaN(adults) && adults < people) {
+  if (!isNaN(people) && !isNaN(adults) && adults > people) {
     problems.push("The number of adults cannot be more than the number of people in your home.");
   }
   if (!isNaN(waste) && (waste < 0 || waste > 100)) {
