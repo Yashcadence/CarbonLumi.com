@@ -349,6 +349,13 @@ function showResults(parts, country) {
   resultsSection.hidden = false;
   drawBarChart(yourTotal, country, continentAverage);
   drawDoughnutChart(parts);
+  document.getElementById("barChart").setAttribute("aria-label",
+  "Bar chart in tonnes of CO2e per person per year. You: " + yourTotal + ". " +
+  country.name + ": " + country.average + ". " +
+  country.continent + ": " + continentAverage + ". World: " + WORLD_AVERAGE + ".");
+  document.getElementById("doughnutChart").setAttribute("aria-label",
+  "Doughnut chart of your emissions in tonnes. " +
+  Object.keys(parts).map(function (name) { return name + ": " + parts[name]; }).join(". ") + ".");
   resultsSection.scrollIntoView({ behavior: "smooth" });
   resultsSection.focus({ preventScroll: true });
 }
