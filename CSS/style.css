@@ -349,3 +349,19 @@ label small {
         display:none; 
     } 
 }
+
+
+.skip-link { 
+    position:absolute; 
+    left:-9999px; t
+    op:0; 
+    background:var(--pri); 
+    color:var(--onpri); 
+    padding:.6rem 1rem; 
+    z-index:100; 
+}
+
+.skip-link:focus { 
+    left:1rem; 
+    top:1rem; 
+}
