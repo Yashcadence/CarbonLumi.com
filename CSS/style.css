@@ -345,6 +345,7 @@ label small {
 
 
 @media print { 
-    .site-header, .site-footer { display:none; 
+    .site-header, .site-footer { 
+        display:none; 
     } 
 }
