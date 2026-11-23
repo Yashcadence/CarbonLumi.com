@@ -350,6 +350,7 @@ function showResults(parts, country) {
   drawBarChart(yourTotal, country, continentAverage);
   drawDoughnutChart(parts);
   resultsSection.scrollIntoView({ behavior: "smooth" });
+  resultsSection.focus({ preventScroll: true });
 }
 
 questionsForm.addEventListener("submit", function (event) {
