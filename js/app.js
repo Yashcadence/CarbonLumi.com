@@ -211,6 +211,7 @@ function showQuestions(country) {
     html += "</fieldset>";
   });
   html += '<button class="btn" type="submit">Calculate my footprint</button>';
+  html += '<div id="formErrors" class="error" role="alert" hidden></div>';
 
   questionsForm.innerHTML = html;
   questionsForm.hidden = false;
