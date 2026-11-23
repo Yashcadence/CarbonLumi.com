@@ -16,7 +16,7 @@ Live demo: coming soon
 
 In Development
 
-## Planned Features
+## Features
 
 - Home page with about us and creator message.
 - Calculator with food, travel, home and shopping questions.
