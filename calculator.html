@@ -10,6 +10,7 @@
     </head>
 
     <body>
+        <a class="skip-link" href="#main">Skip to main content</a>
         <header class="site-header band">
             <a class="logo" href="index.html">Carbon Lumi</a>
             <nav>
@@ -19,11 +20,14 @@
             </nav>
         </header>
 
-        <main>
+        <main id="main">
             <section class="band">
                 <div class="inner">
                     <h1>Carbon footprint calculator</h1>
                     <p class="muted">It takes about five minutes. Questions marked optional can be skipped. Your answers never leave your device.</p>
+                    <noscript>
+                        <p class="note">This calculator needs JavaScript. Please turn it on in your browser settings.</p>
+                    </noscript>
                     <label for="country">Which country is your home country?
                         <select id="country">
                             <option value="">Select your country…</option>
@@ -38,7 +42,7 @@
                 </div>
             </section>
             
-            <section class="band" id="results" hidden aria-live="polite">
+            <section class="band" id="results" hidden aria-live="polite" tabindex="-1">
                 <div class="inner">
                     <p class="muted">Your estimated footprint</p>
                     <div class="big">
@@ -48,10 +52,10 @@
                     <p id="comparison">
                         <div class="charts">
                             <div class="chart-box">
-                                <canvas id="barChart" aria-label="Bar chart comparing you with averages"></canvas>
+                                <canvas id="barChart" role="img" aria-label="Bar chart comparing you with averages"></canvas>
                             </div>
                             <div class="chart-box">
-                                <canvas id="doughnutChart" aria-label="Doughnut chart of your emission sources"></canvas>
+                                <canvas id="doughnutChart" role="img" aria-label="Doughnut chart of your emission sources"></canvas>
                             </div>
                         </div>
                     </p>
