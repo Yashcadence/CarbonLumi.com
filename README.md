@@ -30,4 +30,4 @@ approximations and are listed at the top of `js/app.js`; country averages are in
 
 ## RoadMap
 
-- Charts comparing you with the world (in progress).
+- Charts comparing you with the world (done).
