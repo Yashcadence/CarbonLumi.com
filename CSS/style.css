@@ -353,8 +353,8 @@ label small {
 
 .skip-link { 
     position:absolute; 
-    left:-9999px; t
-    op:0; 
+    left:-9999px;
+    top:0; 
     background:var(--pri); 
     color:var(--onpri); 
     padding:.6rem 1rem; 
