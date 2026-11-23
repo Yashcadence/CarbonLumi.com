@@ -232,7 +232,7 @@ p {
 .frame::before {
     content: "";
     position: absolute;
-    insert: 14px -14px -14px 14px;
+    inset: 14px -14px -14px 14px;
     background: var(--pri);
     border-radius: 140px 140px 18px 18px;
     transform: rotate(3deg);
