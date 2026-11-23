@@ -221,6 +221,24 @@ function findCountry(name) {
   return COUNTRIES.find(function (c) { return c.name === name; });
 }
 
+function validateAnswers(answers) {
+  const problems = [];
+  const people = parseFloat(answers.people);
+  const adults = parseFloat(answers.adults);
+  const waste  = parseFloat(answers.wastePercent);
+
+  if (!isNaN(people) && !isNaN(adults) && adults < people) {
+    problems.push("The number of adults cannot be more than the number of people in your home.");
+  }
+  if (!isNaN(waste) && (waste < 0 || waste > 100)) {
+    problems.push("Food wasted must be between 0 and 100 percent.");
+  }
+  if (!isNaN(people) && people !== Math.floor(people)) {
+    problems.push("Please enter a whole number of people.");
+  }
+  return problems;
+}
+
 countrySelect.addEventListener("change", function () {
   resultsSection.hidden = true;
   const country = findCountry(countrySelect.value);
@@ -233,7 +251,22 @@ countrySelect.addEventListener("change", function () {
 
 questionsForm.addEventListener("submit", function (event) {
   event.preventDefault();
-});
+  const country = findCountry(countrySelect.value);
+  const answers = Object.fromEntries(new FormData(questionsForm));
+
+  const errorBox = document.getElementById("formErrors");
+  const problems = validateAnswers(answers);
+  if (problems.length > 0) {
+    errorBox.innerHTML = "<strong>Please check your answers:</strong><ul><li>" +
+                         problems.join("</li><li>") + "</li></ul>";
+    errorBox.hidden = false;
+    errorBox.scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
+  errorBox.hidden = true;
+  showResults(calculateFootprint(answers, country), country);
+}
+);
 
 
 function calculateFootprint(answers, country) {
