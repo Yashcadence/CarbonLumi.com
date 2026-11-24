@@ -402,3 +402,8 @@ label small {
         font-size: 1.5rem;
     }
 }
+
+
+.btn, .cta, select, input {
+    min-height: 44px;
+}
