@@ -424,3 +424,17 @@ label small {
     grid-template-columns: 1fr 1.25fr;
     gap: 2rem;
 }
+
+@media print {
+    body, .band {
+        background: #fff;
+        color: #000;
+    }
+    .chart-box {
+        background: #fff;
+        border-color: #999;
+    }
+    .muted {
+        color: #333;
+    }
+}
