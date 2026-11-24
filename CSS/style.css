@@ -438,3 +438,15 @@ label small {
         color: #333;
     }
 }
+
+@media print {
+    .leaves, .trail, .skip-link {
+        display: none;
+    }
+    .chart-box {
+        break-inside: avoid;
+    }
+    .charts {
+        grid-template-columns: 1fr;
+    }
+}
