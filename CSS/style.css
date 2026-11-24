@@ -403,7 +403,19 @@ label small {
     }
 }
 
-
 .btn, .cta, select, input {
     min-height: 44px;
+}
+
+@media (max-width: 520px) {
+    .chart-box {
+        min-height: 240px;
+        padding: .6rem;
+    }
+    .big {
+        font-size: 3rem;
+    }
+    fieldset {
+        padding: .8rem 1rem 1.2rem;
+    }
 }
