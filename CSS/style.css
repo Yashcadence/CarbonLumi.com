@@ -419,3 +419,8 @@ label small {
         padding: .8rem 1rem 1.2rem;
     }
 }
+
+.hero-grid {
+    grid-template-columns: 1fr 1.25fr;
+    gap: 2rem;
+}
