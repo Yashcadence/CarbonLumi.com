@@ -420,11 +420,6 @@ label small {
     }
 }
 
-.hero-grid {
-    grid-template-columns: 1fr 1.25fr;
-    gap: 2rem;
-}
-
 @media print {
     body, .band {
         background: #fff;
