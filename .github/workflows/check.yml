@@ -1,0 +1,24 @@
+name: Check site
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: JavaScript syntax
+        run: |
+          for f in js/*.js; do node --check "$f"; done
+      - name: Referenced files exist
+        run: |
+          fail=0
+          for f in *.html; do
+            while read -r p; do
+              [ -e "$p" ] || { echo "Missing: $p (in $f)"; fail=1; }
+            done < <(grep -oE '(src|href)="(js|css|images)/[^"]+"' "$f" | grep -v 'creator.jpg' | sed -E 's/^(src|href)="//;s/"$//')
+          done
+          exit $fail
+      - name: Unit tests
+        run: node --test tests/calculate.test.js
