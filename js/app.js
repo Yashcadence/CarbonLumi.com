@@ -297,7 +297,8 @@ function calculateFootprint(answers, country) {
 
   const people = Math.max(num("people"), 1);
   const adults = Math.min(Math.max(num("adults"), 1), people);
-  const myShare = 1 / (adults + 0.5 * people);
+  const children = people - adults;
+  const myShare = 1 / (adults + 0.5 * children);
 
   let household = (HOUSE_KG[answers.house] || 0) +
                   EXTRA_KG_PER_BEDROOM_ABOVE_2 * (num("bedrooms") - 2);
