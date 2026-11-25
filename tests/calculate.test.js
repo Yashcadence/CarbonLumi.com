@@ -93,3 +93,25 @@ test("skipped questions add nothing except the home minimum", function () {
   assert.equal(result["Goods & services"], 0);
   assert.equal(result.Home, 0.5);
 });
+
+test("validate: 2 adults in a home of 3 is fine", function () {
+  assert.deepEqual(app.validateAnswers({ people: "3", adults: "2" }), []);
+});
+
+test("validate: more adults than people is rejected", function () {
+  const problems = app.validateAnswers({ people: "2", adults: "3" });
+  assert.equal(problems.length, 1);
+  assert.match(problems[0], /adults cannot be more than/);
+});
+
+test("validate: waste above 100 percent is rejected", function () {
+  const problems = app.validateAnswers({ wastePercent: "150" });
+  assert.equal(problems.length, 1);
+  assert.match(problems[0], /between 0 and 100/);
+});
+
+test("validate: half a person is rejected", function () {
+  const problems = app.validateAnswers({ people: "2.5", adults: "2" });
+  assert.equal(problems.length, 1);
+  assert.match(problems[0], /whole number/);
+});
