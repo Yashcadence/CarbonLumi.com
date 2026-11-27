@@ -330,7 +330,9 @@ function calculateFootprint(answers, country) {
   const home = homeKg(answers, num);
   const goods = goodsKg(num, usd);
 
-  function tonnes(kg) { return Math.round(kg / 10) / 100; }
+  function tonnes(kg) { 
+    return Math.round(kg / 10) / 100; 
+  }
   return {
     "Food": tonnes(food),
     "Travel": tonnes(travel),
