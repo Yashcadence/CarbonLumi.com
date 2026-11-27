@@ -1,7 +1,7 @@
 :root, .dark {
     --bg: #0d2419;
     --surface: #15352a;
-    --ink: #eaf3ee
+    --ink: #eaf3ee;
     --mut: #a9c2b6;
     --line: #2c4f40;
     --pri: #5fd09b;
@@ -32,7 +32,7 @@ h1, h2, h3 {
 }
 
 h1 {
-    font-size: clamp(2.2rem, 6vm, 3.8rem);
+    font-size: clamp(2.2rem, 6vw, 3.8rem);
 }
 
 
@@ -76,11 +76,11 @@ p {
     border-bottom: 2px solid transparent;
 }
 
-.site header nav a:hover, .site-header nav a[aria-current] {
+.site-header nav a:hover, .site-header nav a[aria-current] {
     border-color: var(--pri);
 }
 
-.site footer {
+.site-footer {
     text-align:center;
     color:var(--mut);
     border-top: 1px solid var(--line);
@@ -282,7 +282,7 @@ p {
     opacity: .9;
 }
 
-.button [disabled] {
+.button:disabled {
     opacity: .5;
     cursor: not-allowed;
 }
