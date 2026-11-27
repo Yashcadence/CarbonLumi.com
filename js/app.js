@@ -422,14 +422,6 @@ function showResults(parts, country) {
   resultsSection.focus({ preventScroll: true });
 }
 
-questionsForm.addEventListener("submit", function (event) {
-  event.preventDefault();
-  const country = findCountry(countrySelect.value);
-  const answers = Object.fromEntries(new FormData(questionsForm));
-  showResults(calculateFootprint(answers, country), country);
-});
-
-
 function biggestSourceTip(parts) {
   let biggest = "Food";
   for (const group in parts) {
