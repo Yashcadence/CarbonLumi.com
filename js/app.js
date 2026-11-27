@@ -25,6 +25,51 @@ const WASTE_EFFECT = 0.5;
 
 const KG_PER_USD_EATING_OUT = 0.6;
 
+const HOUSE_KG = {
+  detached: 4500,
+  semi: 3600,
+  terraced: 3000,
+  apartment: 2200,
+  other: 2500
+};
+
+const EXTRA_KG_PER_BEDROOM_ABOVE_2 = 300;
+
+const HEATING_COOLING_FACTOR = {
+  gas: 1,
+  oil: 1.15,
+  electric: 1.2,
+  heat_pump: 0.4,
+  wood: 0.7,
+  district: 0.8,
+  none: 0.7,
+  ac_most_rooms: 1.3,
+  ac_some_rooms: 1.15,
+  fans_only: 1,
+  natural: 0.9
+};
+
+const STANDBY_FACTOR = {
+  always: 0.92,
+  sometimes: 0.96,
+  rarely: 1
+};
+
+const KG_PER_ITEM = {
+  tv: 350,
+  largeAppliance: 600,
+  phone: 70,
+  gadget: 200
+};
+
+const KG_PER_USD = {
+  clothes: 0.5,
+  pets: 0.3,
+  health: 0.2,
+  mobileContract: 0.1,
+  hobbies: 0.3
+};
+
 const KG_PER_KM = {
   car_petrol:   0.17,
   car_diesel:   0.16,
@@ -268,6 +313,53 @@ questionsForm.addEventListener("submit", function (event) {
 }
 );
 
+function foodKg(answers, num, usd) {
+  let food = DIET_KG[answers.diet] || 0;
+  food = food * (1 - (LOCAL_FOOD_SAVING[answers.local] || 0));
+  food = food * (1 + (Math.min(num("wastePercent"), 100) / 100) * WASTE_EFFECT);
+  food = food + usd("eatOutWeekly") * 52 * KG_PER_USD_EATING_OUT;
+  return food;
+}
+
+function travelKg(answers, num) {
+  let travel = 0;
+  if (KG_PER_KM[answers.mode] !== undefined) {
+    const kmPerWeek = (answers.carKmWeekly === "" || answers.carKmWeekly === undefined)
+      ? DEFAULT_KM_PER_WEEK
+      : num("carKmWeekly");
+    travel += kmPerWeek * 52 * KG_PER_KM[answers.mode];
+  }
+  travel += num("trainHours") * 52 * KG_PER_HOUR_TRAIN;
+  travel += num("busHours")   * 52 * KG_PER_HOUR_BUS;
+  travel += num("flightsHome")   * KG_PER_FLIGHT_HOME_COUNTRY;
+  travel += num("flightsAbroad") * KG_PER_FLIGHT_ABROAD;
+  return travel;
+}
+
+function homeKg(answers, num) {
+  const people = Math.max(num("people"), 1);
+  const adults = Math.min(Math.max(num("adults"), 1), people);
+  const children = people - adults;
+  const myShare = 1 / (adults + 0.5 * children);
+
+  let household = (HOUSE_KG[answers.house] || 0) +
+                  EXTRA_KG_PER_BEDROOM_ABOVE_2 * (num("bedrooms") - 2);
+  household = Math.max(household, 500);
+  household = household * (answers.heating in HEATING_COOLING_FACTOR ? HEATING_COOLING_FACTOR[answers.heating] : 1);
+  household = household * (answers.standby in STANDBY_FACTOR ? STANDBY_FACTOR[answers.standby] : 1);
+  return household * myShare;
+}
+
+function goodsKg(num, usd) {
+  let goods = 0;
+  for (const item in KG_PER_ITEM) {
+    goods += num(item) * KG_PER_ITEM[item];
+  }
+  for (const spend in KG_PER_USD) {
+    goods += usd(spend) * 12 * KG_PER_USD[spend];
+  }
+  return goods;
+}
 
 function calculateFootprint(answers, country) {
   function num(id) {
@@ -278,44 +370,14 @@ function calculateFootprint(answers, country) {
     return num(id) / country.perUSD;
   }
 
-  let food = DIET_KG[answers.diet] || 0;
-  food = food * (1 - (LOCAL_FOOD_SAVING[answers.local] || 0));
-  food = food * (1 + (Math.min(num("wastePercent"), 100) / 100) * WASTE_EFFECT);
-  food = food + usd("eatOutWeekly") * 52 * KG_PER_USD_EATING_OUT;
+  const food = foodKg(answers, num, usd);
+  const travel = travelKg(answers, num);
+  const home = homeKg(answers, num);
+  const goods = goodsKg(num, usd);
 
-  let travel = 0;
-  if (KG_PER_KM[answers.mode] !== undefined) {  
-    const kmPerWeek = (answers.carKmWeekly === "" || answers.carKmWeekly === undefined)
-      ? DEFAULT_KM_PER_WEEK
-      : num("carKmWeekly");
-    travel += kmPerWeek * 52 * KG_PER_KM[answers.mode];
+  function tonnes(kg) { 
+    return Math.round(kg / 10) / 100; 
   }
-  travel += num("trainHours") * 52 * KG_PER_HOUR_TRAIN;
-  travel += num("busHours")   * 52 * KG_PER_HOUR_BUS;
-  travel += num("flightsHome")   * KG_PER_FLIGHT_HOME_COUNTRY;
-  travel += num("flightsAbroad") * KG_PER_FLIGHT_ABROAD;
-
-  const people = Math.max(num("people"), 1);
-  const adults = Math.min(Math.max(num("adults"), 1), people);
-  const children = people - adults;
-  const myShare = 1 / (adults + 0.5 * children);  
-
-  let household = (HOUSE_KG[answers.house] || 0) +
-                  EXTRA_KG_PER_BEDROOM_ABOVE_2 * (num("bedrooms") - 2);
-  household = Math.max(household, 500);
-  household = household * (answers.heating in HEATING_COOLING_FACTOR ? HEATING_COOLING_FACTOR[answers.heating] : 1);
-  household = household * (answers.standby in STANDBY_FACTOR ? STANDBY_FACTOR[answers.standby] : 1);
-  const home = household * myShare;
-
-  let goods = 0;
-  for (const item in KG_PER_ITEM) {
-    goods += num(item) * KG_PER_ITEM[item];
-  }
-  for (const spend in KG_PER_USD) {
-    goods += usd(spend) * 12 * KG_PER_USD[spend];
-  }
-
-  function tonnes(kg) { return Math.round(kg / 10) / 100; }
   return {
     "Food": tonnes(food),
     "Travel": tonnes(travel),
@@ -359,14 +421,6 @@ function showResults(parts, country) {
   resultsSection.scrollIntoView({ behavior: "smooth" });
   resultsSection.focus({ preventScroll: true });
 }
-
-questionsForm.addEventListener("submit", function (event) {
-  event.preventDefault();
-  const country = findCountry(countrySelect.value);
-  const answers = Object.fromEntries(new FormData(questionsForm));
-  showResults(calculateFootprint(answers, country), country);
-});
-
 
 function biggestSourceTip(parts) {
   let biggest = "Food";
