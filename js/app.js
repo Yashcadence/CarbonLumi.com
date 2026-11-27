@@ -35,6 +35,8 @@ const HOUSE_KG = {
 
 const EXTRA_KG_PER_BEDROOM_ABOVE_2 = 300;
 
+const MIN_HOUSEHOLD_KG = 500;
+
 const HEATING_COOLING_FACTOR = {
   gas: 1,
   oil: 1.15,
@@ -88,7 +90,7 @@ const KG_PER_FLIGHT_ABROAD       = 1600;
 
 
 function buildQuestions(country) {
-  const money = "(" + country.currency + ")";   // e.g. "(GBP)"
+  const money = "(" + country.currency + ")";  
 
   let heatingOptions;
   let heatingLabel;
@@ -344,7 +346,7 @@ function homeKg(answers, num) {
 
   let household = (HOUSE_KG[answers.house] || 0) +
                   EXTRA_KG_PER_BEDROOM_ABOVE_2 * (num("bedrooms") - 2);
-  household = Math.max(household, 500);
+  household = Math.max(household, MIN_HOUSEHOLD_KG);
   household = household * (answers.heating in HEATING_COOLING_FACTOR ? HEATING_COOLING_FACTOR[answers.heating] : 1);
   household = household * (answers.standby in STANDBY_FACTOR ? STANDBY_FACTOR[answers.standby] : 1);
   return household * myShare;
@@ -375,9 +377,7 @@ function calculateFootprint(answers, country) {
   const home = homeKg(answers, num);
   const goods = goodsKg(num, usd);
 
-  function tonnes(kg) { 
-    return Math.round(kg / 10) / 100; 
-  }
+  function tonnes(kilograms) { return Math.round(kilograms / 10) / 100; }
   return {
     "Food": tonnes(food),
     "Travel": tonnes(travel),
