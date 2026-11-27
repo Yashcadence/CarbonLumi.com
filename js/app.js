@@ -25,6 +25,51 @@ const WASTE_EFFECT = 0.5;
 
 const KG_PER_USD_EATING_OUT = 0.6;
 
+const HOUSE_KG = {
+  detached: 4500,
+  semi: 3600,
+  terraced: 3000,
+  apartment: 2200,
+  other: 2500
+};
+
+const EXTRA_KG_PER_BEDROOM_ABOVE_2 = 300;
+
+const HEATING_COOLING_FACTOR = {
+  gas: 1,
+  oil: 1.15,
+  electric: 1.2,
+  heat_pump: 0.4,
+  wood: 0.7,
+  district: 0.8,
+  none: 0.7,
+  ac_most_rooms: 1.3,
+  ac_some_rooms: 1.15,
+  fans_only: 1,
+  natural: 0.9
+};
+
+const STANDBY_FACTOR = {
+  always: 0.92,
+  sometimes: 0.96,
+  rarely: 1
+};
+
+const KG_PER_ITEM = {
+  tv: 350,
+  largeAppliance: 600,
+  phone: 70,
+  gadget: 200
+};
+
+const KG_PER_USD = {
+  clothes: 0.5,
+  pets: 0.3,
+  health: 0.2,
+  mobileContract: 0.1,
+  hobbies: 0.3
+};
+
 const KG_PER_KM = {
   car_petrol:   0.17,
   car_diesel:   0.16,
