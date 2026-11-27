@@ -276,19 +276,9 @@ function foodKg(answers, num, usd) {
   return food;
 }
 
-function calculateFootprint(answers, country) {
-  function num(id) {
-    const value = parseFloat(answers[id]);
-    return isNaN(value) ? 0 : value;
-  }
-  function usd(id) {
-    return num(id) / country.perUSD;
-  }
-
-  const food = foodKg(answers, num, usd);
-
+function travelKg(answers, num) {
   let travel = 0;
-  if (KG_PER_KM[answers.mode] !== undefined) {  
+  if (KG_PER_KM[answers.mode] !== undefined) {
     const kmPerWeek = (answers.carKmWeekly === "" || answers.carKmWeekly === undefined)
       ? DEFAULT_KM_PER_WEEK
       : num("carKmWeekly");
@@ -298,6 +288,19 @@ function calculateFootprint(answers, country) {
   travel += num("busHours")   * 52 * KG_PER_HOUR_BUS;
   travel += num("flightsHome")   * KG_PER_FLIGHT_HOME_COUNTRY;
   travel += num("flightsAbroad") * KG_PER_FLIGHT_ABROAD;
+  return travel;
+}
+
+function calculateFootprint(answers, country) {
+  function num(id) {
+    const value = parseFloat(answers[id]);
+    return isNaN(value) ? 0 : value;
+  }
+  function usd(id) {
+    return num(id) / country.perUSD;
+  }
+
+  const travel = travelKg(answers, num);
 
   const people = Math.max(num("people"), 1);
   const adults = Math.min(Math.max(num("adults"), 1), people);
