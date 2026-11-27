@@ -268,6 +268,13 @@ questionsForm.addEventListener("submit", function (event) {
 }
 );
 
+function foodKg(answers, num, usd) {
+  let food = DIET_KG[answers.diet] || 0;
+  food = food * (1 - (LOCAL_FOOD_SAVING[answers.local] || 0));
+  food = food * (1 + (Math.min(num("wastePercent"), 100) / 100) * WASTE_EFFECT);
+  food = food + usd("eatOutWeekly") * 52 * KG_PER_USD_EATING_OUT;
+  return food;
+}
 
 function calculateFootprint(answers, country) {
   function num(id) {
@@ -278,10 +285,7 @@ function calculateFootprint(answers, country) {
     return num(id) / country.perUSD;
   }
 
-  let food = DIET_KG[answers.diet] || 0;
-  food = food * (1 - (LOCAL_FOOD_SAVING[answers.local] || 0));
-  food = food * (1 + (Math.min(num("wastePercent"), 100) / 100) * WASTE_EFFECT);
-  food = food + usd("eatOutWeekly") * 52 * KG_PER_USD_EATING_OUT;
+  const food = foodKg(answers, num, usd);
 
   let travel = 0;
   if (KG_PER_KM[answers.mode] !== undefined) {  
