@@ -291,6 +291,31 @@ function travelKg(answers, num) {
   return travel;
 }
 
+function homeKg(answers, num) {
+  const people = Math.max(num("people"), 1);
+  const adults = Math.min(Math.max(num("adults"), 1), people);
+  const children = people - adults;
+  const myShare = 1 / (adults + 0.5 * children);
+
+  let household = (HOUSE_KG[answers.house] || 0) +
+                  EXTRA_KG_PER_BEDROOM_ABOVE_2 * (num("bedrooms") - 2);
+  household = Math.max(household, 500);
+  household = household * (answers.heating in HEATING_COOLING_FACTOR ? HEATING_COOLING_FACTOR[answers.heating] : 1);
+  household = household * (answers.standby in STANDBY_FACTOR ? STANDBY_FACTOR[answers.standby] : 1);
+  return household * myShare;
+}
+
+function goodsKg(num, usd) {
+  let goods = 0;
+  for (const item in KG_PER_ITEM) {
+    goods += num(item) * KG_PER_ITEM[item];
+  }
+  for (const spend in KG_PER_USD) {
+    goods += usd(spend) * 12 * KG_PER_USD[spend];
+  }
+  return goods;
+}
+
 function calculateFootprint(answers, country) {
   function num(id) {
     const value = parseFloat(answers[id]);
@@ -300,27 +325,10 @@ function calculateFootprint(answers, country) {
     return num(id) / country.perUSD;
   }
 
+  const food = foodKg(answers, num, usd);
   const travel = travelKg(answers, num);
-
-  const people = Math.max(num("people"), 1);
-  const adults = Math.min(Math.max(num("adults"), 1), people);
-  const children = people - adults;
-  const myShare = 1 / (adults + 0.5 * children);  
-
-  let household = (HOUSE_KG[answers.house] || 0) +
-                  EXTRA_KG_PER_BEDROOM_ABOVE_2 * (num("bedrooms") - 2);
-  household = Math.max(household, 500);
-  household = household * (answers.heating in HEATING_COOLING_FACTOR ? HEATING_COOLING_FACTOR[answers.heating] : 1);
-  household = household * (answers.standby in STANDBY_FACTOR ? STANDBY_FACTOR[answers.standby] : 1);
-  const home = household * myShare;
-
-  let goods = 0;
-  for (const item in KG_PER_ITEM) {
-    goods += num(item) * KG_PER_ITEM[item];
-  }
-  for (const spend in KG_PER_USD) {
-    goods += usd(spend) * 12 * KG_PER_USD[spend];
-  }
+  const home = homeKg(answers, num);
+  const goods = goodsKg(num, usd);
 
   function tonnes(kg) { return Math.round(kg / 10) / 100; }
   return {
