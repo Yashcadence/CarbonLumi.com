@@ -52,3 +52,13 @@ test("data: averages are above 0 and at most 40 tonnes", function () {
 test("data: the world average is sensible", function () {
   assert.ok(worldAverage > 1 && worldAverage < 10);
 });
+
+test("data: each country average is within a sensible range of its continent average", function () {
+  // Catches decimal-point slips such as 0.52 instead of 5.2
+  countries.forEach(function (c) {
+    const ratio = c.average / continentAvgs[c.continent];
+    assert.ok(ratio >= 0.15 && ratio <= 8,
+      c.name + ": average " + c.average + " is " + ratio.toFixed(2) + " times its continent average (" +
+      continentAvgs[c.continent] + "), expected between 0.15 and 8 times");
+  });
+});
